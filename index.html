@@ -6,6 +6,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Тестирование</title>
 <style>
+	button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:active {
+    background-color: #388e3c;
+}
 .ticket {
 display: none;
 white-space: pre-line;
