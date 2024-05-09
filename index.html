@@ -14,6 +14,7 @@
     color: #333;
     border-bottom: 2px solid #ccc;
     padding-bottom: 5px;
+    text-align: center;
 }
 
 /* Стили для номера вопроса */
@@ -148,6 +149,11 @@ button:active {
 display: none;
 white-space: pre-line;
 }
+.button {
+    width: 100%; /* Занимает всю ширину */
+    box-sizing: border-box; /* Учитываем границы и отступы внутри ширины */
+    padding: 10px; /* Пример отступа вокруг кнопки */
+}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
@@ -155,8 +161,8 @@ white-space: pre-line;
 </script>
 </head>
 <body>
-<button onclick="generateNumber()">Вытянуть билет</button>
-<button id="showAnswersButton">Показать ответы</button>
+<button class="button" onclick="generateNumber()">Вытянуть билет</button>
+<button style="display: none;" id="showAnswersButton">Показать ответы</button>
 <div id="tickets">
 <div id="ticket_1" class="ticket"><div class="question-title"><br>Билет номер<span class="question-number"> 1</span></div><br>
 Укажите способы получения цинка на Риддерском металлургическом комплексе.
@@ -837,6 +843,11 @@ white-space: pre-line;
 
 </div>
 </div>
+<div id="results">
+    <div id="incorrect-answers" class="result-column">
+        <h3>Неправильные ответы</h3>
+    </div>
+</div>
 <script>
 let generatedNumbers = [];
 function generateNumber() {
@@ -846,7 +857,6 @@ randomNumber = Math.floor(Math.random() * 80) + 1;
 } while (generatedNumbers.includes(randomNumber));
 var elements = document.getElementsByClassName("ticket");
 var ans = document.getElementsByClassName("answers");
-
 // Пройти по каждому элементу и присвоить свойство display: none;
 for (var i = 0; i < ans.length; i++) {
     ans[i].style.display = "none";
@@ -856,6 +866,30 @@ for (var i = 0; i < elements.length; i++) {
 }
 document.getElementById(`ticket_${randomNumber}`).style.display = "block";
 generatedNumbers.push(randomNumber);
+
+
+var questionTitles = document.querySelectorAll(".question-title");
+// Скрываем все элементы
+questionTitles.forEach(function(element) {
+    element.style.display = "none";
+});
+// Получаем все элементы с классом question-title
+var questionTitles = document.querySelectorAll(".question-title");
+
+// Перебираем все элементы и удаляем класс actAns
+questionTitles.forEach(function(element) {
+    element.classList.remove("actAns");
+});
+// Выбираем элемент с классом "question-title" и показываем его
+var elementToHide = document.querySelector("#ticket_" + randomNumber + "> div.question-title");
+if (elementToHide) {
+    elementToHide.style.display = "block";
+    elementToHide.classList.add("actAns");
+} else {
+    console.error("Элемент не найден.");
+}
+
+
 }
 var showAnswersButton = document.getElementById("showAnswersButton");
 
@@ -869,6 +903,54 @@ showAnswersButton.addEventListener("click", function() {
         answers[i].style.display = "inline";
     }
 });
+// Находим все чекбоксы с классами "ansY" и "ansN"
+var ansNCheckboxes = document.querySelectorAll('.ansN');
+var ansYCheckboxes = document.querySelectorAll('.ansY');
+
+
+ansCheckboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+// Итерируемся по каждому чекбоксу и отключаем его
+checkboxes.forEach(function(checkbox) {
+    checkbox.disabled = true;
+});
+
+ansNCheckboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        var resultDiv = document.getElementById('incorrect-answers');
+var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+// Итерируемся по каждому чекбоксу и отключаем его
+checkboxes.forEach(function(checkbox) {
+    checkbox.disabled = true;
+});
+        var questionTitleElement = document.querySelector(".question-title.actAns");
+
+// Проверяем, найден ли элемент
+if (questionTitleElement) {
+    // Получаем текст из элемента
+    var textFromQuestionTitle = questionTitleElement.innerText;
+    // Убираем начальные и конечные пробелы из текста
+    textFromQuestionTitle = textFromQuestionTitle.trim();
+    textFromQuestionTitle = textFromQuestionTitle.replace("номер", "номер ");}
+
+        if (checkbox.checked) {
+            var resultSpan = document.createElement('span');
+            resultSpan.textContent = textFromQuestionTitle + " | ";
+            resultDiv.appendChild(resultSpan);
+        } else {
+            var results = resultDiv.querySelectorAll('span');
+            results.forEach(function(result) {
+                if (result.textContent.trim() === textFromQuestionTitle + " | ") {
+                    result.remove();
+                }
+            });
+        }
+    });
+});
+
 
 </script>
 </body>
