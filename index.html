@@ -1,1 +1,72 @@
-<h1>Для особо неблагодарных сайт недоступен</h1>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сайт недоступен</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e293b,#111827);
+    font-family:Arial, Helvetica, sans-serif;
+    overflow:hidden;
+}
+
+.container{
+    width:100%;
+    padding:20px;
+}
+
+h1{
+    width:100%;
+    text-align:center;
+    color:#ffffff;
+    font-weight:900;
+    text-transform:uppercase;
+    line-height:1.1;
+    font-size:clamp(2rem, 8vw, 6rem);
+    text-shadow:
+        0 0 10px rgba(255,255,255,.2),
+        0 0 20px rgba(255,255,255,.15),
+        0 0 40px rgba(255,255,255,.1);
+    word-wrap:break-word;
+}
+
+.line{
+    width:min(90%,1000px);
+    height:4px;
+    margin:25px auto;
+    background:linear-gradient(90deg,
+        transparent,
+        rgba(255,255,255,.8),
+        transparent);
+}
+
+.subtitle{
+    text-align:center;
+    color:rgba(255,255,255,.7);
+    font-size:clamp(0.9rem,2vw,1.3rem);
+    letter-spacing:2px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Для особо неблагодарных сайт недоступен</h1>
+    <div class="line"></div>
+    <div class="subtitle">Доступ временно ограничен</div>
+</div>
+
+</body>
+</html>
